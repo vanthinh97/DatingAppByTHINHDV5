@@ -1,31 +1,39 @@
 
 <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" 
 crossorigin="anonymous">
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+<link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" /> -->
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-warning">
     <div class="container-fluid">
-        <a style="padding-left: 30px;" class="navbar-brand" href="#">Dating App</a>
+        <a style="padding-left: 30px;" class="navbar-brand" routerLink='/'>Dating App</a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav me-auto mb-2 mb-md-0">
-                <ul class="navbar-nav me-auto" *ngIf="accountService.currentUser$ | async">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Matches</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lists</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Messages</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" (click)="logout()" href="#">Logout</a>
-                    </li>
+                <ul class="navbar-nav mr-auto">
+                    <ng-container *ngIf="accountService.currentUser$ | async">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink='/members' routerLinkActive='active'>Matches</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink='/lists' routerLinkActive='active'>Lists</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink='/messages' routerLinkActive='active'>Messages</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" (click)="logout()" href="#">Logout</a>
+                        </li> -->
+                    </ng-container>
                 </ul>
             </div>
 
-            <div style="margin-right: 30px; position: relative;" class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-                <a class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+            <div style="margin-right: 30px; position: relative;" class="dropdown" 
+            *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+                <a class="dropdown-toggle text-light" dropdownToggle>
+                    Welcome <strong>{{user.username | titlecase}}</strong>
+                </a>
                 <div style="margin-left: -30px;" class="dropdown-menu mt-2" *dropdownMenu>
                     <a class="dropdown-item">Edit Profile</a>
                     <div class="dropdown-divider"></div>
@@ -48,7 +56,7 @@ crossorigin="anonymous">
                     type="password" 
                     placeholder="password" 
                     aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Login</button>
+                <button class="btn btn-success" type="submit">Login</button>
             </form>
         </div>
     </div>
