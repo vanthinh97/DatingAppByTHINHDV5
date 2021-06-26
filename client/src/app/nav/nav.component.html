@@ -26,6 +26,9 @@ crossorigin="anonymous">
                             <a class="nav-link" (click)="logout()" href="#">Logout</a>
                         </li> -->
                     </ng-container>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Errors</a>
+                    </li>
                 </ul>
             </div>
 
@@ -43,7 +46,7 @@ crossorigin="anonymous">
             
             <form *ngIf="(accountService.currentUser$ | async) === null || (accountService.currentUser$ | async) === undefined" 
                 #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" 
-                autocomplete="off">
+                autocomplete="off" style="margin-right: 20px;">
                 <input class="form-control me-2" 
                     name="username"
                     [(ngModel)]="model.username"
