@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter,  } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 
@@ -10,11 +11,16 @@ import { AccountService } from '../_services/account.service';
 export class RegisterComponent implements OnInit {
   // @Input() usersFromHomeComponent : any;
   @Output() cancelRegister = new EventEmitter();
-  model: any = {}
+  model: any = {};
+  registerForm!: FormGroup;
   
   constructor(private accountService: AccountService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+  }
+
+  initializeForm() {
+    
   }
 
   register() {

@@ -53,7 +53,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               break;
 
             default:
-              this.toast.error('Something exspected went wrong');
+              this.toast.error('Something expected went wrong');
               console.log(error);
               break;
           }
