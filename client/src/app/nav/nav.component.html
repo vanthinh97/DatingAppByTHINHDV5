@@ -34,7 +34,7 @@ crossorigin="anonymous">
 
             <div style="margin-right: 30px; position: relative;" class="dropdown" 
                 *ngIf="(accountService.currentUser$ | async) as user" dropdown>
-                <img src="{{user.photoUrl}}" alt="{{user.username}}">
+                <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.username}}">
                 <a class="dropdown-toggle text-light text_Color" dropdownToggle>
                     Welcome <strong>{{user.username | titlecase}}</strong>
                 </a>
