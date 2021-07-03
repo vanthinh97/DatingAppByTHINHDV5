@@ -36,7 +36,7 @@ crossorigin="anonymous">
                 *ngIf="(accountService.currentUser$ | async) as user" dropdown>
                 <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.username}}">
                 <a class="dropdown-toggle text-light text_Color" dropdownToggle>
-                    Welcome <strong>{{user.username | titlecase}}</strong>
+                    Welcome <strong>{{user.knownAs | titlecase}}</strong>
                 </a>
                 <div style="margin-left: 40px;" class="dropdown-menu mt-2" *dropdownMenu>
                     <a routerLink='/member/edit' class="dropdown-item">Edit Profile</a>
