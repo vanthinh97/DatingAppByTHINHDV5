@@ -22,9 +22,9 @@ crossorigin="anonymous">
                         <li class="nav-item">
                             <a class="nav-link text_Color" routerLink='/messages' routerLinkActive='active'>Messages</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" (click)="logout()" href="#">Logout</a>
-                        </li> -->
+                        <li *appHasRole='["Admin", "Moderator"]' class="nav-item">
+                            <a class="nav-link text_Color" routerLink='/admin' routerLinkActive='admin'>Admin</a>
+                        </li>
                     </ng-container>
                     <li class="nav-item">
                         <a class="nav-link text_Color" routerLink='/errors' routerLinkActive='active'>Errors</a>
@@ -36,7 +36,7 @@ crossorigin="anonymous">
                 *ngIf="(accountService.currentUser$ | async) as user" dropdown>
                 <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.username}}">
                 <a class="dropdown-toggle text-light text_Color" dropdownToggle>
-                    Welcome <strong>{{user.knownAs | titlecase}}</strong>
+                    Welcome <strong>{{user.knownAs || user.username | titlecase}}</strong>
                 </a>
                 <div style="margin-left: 40px;" class="dropdown-menu mt-2" *dropdownMenu>
                     <a routerLink='/member/edit' class="dropdown-item">Edit Profile</a>
