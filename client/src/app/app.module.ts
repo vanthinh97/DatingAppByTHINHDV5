@@ -34,6 +34,8 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
+import { SignatureFieldComponent } from './signature-field/signature-field.component';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 
 
@@ -61,7 +63,8 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
     UserManagementComponent,
     PhotoManagementComponent,
     RolesModalComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    SignatureFieldComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
     BrowserAnimationsModule,
     ReactiveFormsModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    SignaturePadModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

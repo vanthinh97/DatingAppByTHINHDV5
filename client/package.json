@@ -23,6 +23,7 @@
     "@microsoft/signalr": "^5.0.7",
     "@schematics/angular": "^12.1.0",
     "angular-toastr": "^2.1.1",
+    "angular2-signaturepad": "^3.0.4",
     "bootstrap": "^5.0.2",
     "bootswatch": "^5.0.2",
     "font-awesome": "^4.7.0",
