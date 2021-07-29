@@ -1,0 +1,124 @@
+<div class="row">
+    <div style="padding-bottom: 50px;" class="row col-6">
+        <h2 style="font-family: 'Dancing Script', cursive; color: red; width: 350px;">Detect Face Extract</h2>
+        <button style="width: 100px;" class="btn btn-primary" (click)='showUpload()'>upload</button>
+    </div>
+    <div style="padding-bottom: 50px;" class="row col-6">
+        <form #urlForm="ngForm" (ngSubmit)="sendUrImage()" style="display: flex;" autocomplete="off">
+            <input style="height: 46px;" 
+                class="form-control" 
+                type="text" 
+                placeholder="put link image here"
+                name="urlImage"
+                [(ngModel)]="urlImageUI">
+            <button [disabled]="!urlForm.valid" class="btn btn-success" type="submit">Submit</button>
+        </form>
+    </div>
+    <div *ngIf="show" style="padding-bottom: 40px;" class="row mt-3 col-8">
+
+        <div class="col-md-3">
+    
+            <h3>Add Photos</h3>
+    
+            <div ng2FileDrop
+                    [ngClass]="{'nv-file-over': hasBaseDropzoneOver}"
+                    (fileOver)="fileOverBase($event)"
+                    [uploader]="uploader"
+                    class="card bg-faded p-3 text-center mb-3 my-drop-zone">
+                    <i class="fa fa-upload fa-3x"></i>
+                Drop photos here
+            </div>
+    
+            Multiple
+            <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+    
+            Single
+            <input type="file" ng2FileSelect [uploader]="uploader" />
+        </div>
+    
+        <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
+    
+            <h3>Upload queue</h3>
+            <p>Queue length: {{ uploader?.queue?.length }}</p>
+    
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="50%">Name</th>
+                    <th>Size</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of uploader.queue">
+                    <td><strong>{{ item?.file?.name }}</strong></td>
+                    <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                    
+                </tr>
+                </tbody>
+            </table>
+    
+            <div>
+                <div>
+                    Queue progress:
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success btn-s"
+                        (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <span class="fa fa-upload"></span> Upload all
+                </button>
+                <button type="button" class="btn btn-warning btn-s"
+                        (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                    <span class="fa fa-ban"></span> Cancel all
+                </button>
+                <button type="button" class="btn btn-danger btn-s"
+                        (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                    <span class="fa fa-trash"></span> Remove all
+                </button>
+            </div>
+    
+        </div>       
+    </div>
+
+    <ng-container *ngIf="listFaceInfo">
+        <div class="row">
+            <div class="col-4" *ngFor="let item of listFaceInfo">
+                <div class="card" >
+                    <img src="{{item.imageUrl}}" 
+                        class="card-img-top img-thumbnail">
+                    <div style="background-color: antiquewhite;" class="card-body">
+                        <div *ngFor="let data of item.items" class="row">
+                            <h4 style = "font-family:courier,arial,helvetica;">People {{item.items.indexOf(data) + 1}}</h4>
+                            <div class="col-6">
+                                <strong style="font-family: 'Roboto Mono', monospace;">Age</strong>
+                                <p>{{data.age}}</p>
+                            </div>
+                            <div class="col-6">
+                                <strong style="font-family: 'Roboto Mono', monospace;">Emotion:</strong>
+                                <p>{{data.emotion}}</p>
+                            </div>
+                            <div class="col-6">
+                                <strong style="font-family: 'Roboto Mono', monospace;">Hair:</strong>
+                                <p>{{data.hair}}</p>
+                            </div>
+                            <div class="col-6">
+                                <strong style="font-family: 'Roboto Mono', monospace;">Gender:</strong>
+                                <p>{{data.gender}}</p>
+                            </div>
+                            <div class="col-6">
+                                <strong style="font-family: 'Roboto Mono', monospace;">Smile:</strong>
+                                <p>{{data.smile}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </ng-container>
+</div>
+
+
+

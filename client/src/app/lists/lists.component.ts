@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Member } from '../_models/member';
 import { Pagination } from '../_models/pagination';
 import { MembersService } from '../_services/members.service';
@@ -14,8 +15,9 @@ export class ListsComponent implements OnInit {
   pageNumber = 1;
   pageSize = 5;
   pagination!: Pagination;
+  memberUrl!: string;
                                                                                         
-  constructor(private memberService: MembersService) { }
+  constructor(private memberService: MembersService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadLikes();
@@ -32,5 +34,9 @@ export class ListsComponent implements OnInit {
   pageChanged(event: any) {
     this.pageNumber = event.page;
     this.loadLikes();
+  }
+
+  sendUrlToFaceService(urlImageToAzure: string) {
+    this.router.navigate(['/azureservice'], { queryParams: { urlImage: urlImageToAzure}});
   }
 }

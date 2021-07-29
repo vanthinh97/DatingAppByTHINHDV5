@@ -22,8 +22,11 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
-        public UsersController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoService photoService)
+        private readonly IFaceApiService _faceApiService;
+        public UsersController(IUnitOfWork unitOfWork, IMapper mapper, 
+            IPhotoService photoService, IFaceApiService faceApiService)
         {
+            _faceApiService = faceApiService;
             _unitOfWork = unitOfWork;
             _photoService = photoService;
             _mapper = mapper;
@@ -124,7 +127,9 @@ namespace API.Controllers
         {
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
-            var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+            // var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+
+            var photo = await _unitOfWork.PhotoRepository.GetPhotoById(photoId);
 
             if (photo == null) return NoContent();
 
@@ -142,5 +147,40 @@ namespace API.Controllers
 
             return BadRequest("Fail to delete photo");
         }
+
+        [HttpPost("face-detected")]
+        public async Task<ActionResult<FaceApiDto>> FaceDetected(IFormFile file)
+        {
+            var result = await _photoService.AddPhotoAsync(file);
+
+            if (result.Error != null) return BadRequest(result.Error.Message);
+
+            string url = result.SecureUrl.AbsoluteUri.ToString();
+
+            // Demo
+            // string urlDemo = "https://res.cloudinary.com/vanthinh97/image/upload/v1626393525/mdz516ez3ytgpsvalkru.jpg";
+            
+            // Detect - get features from faces.
+            var dataFace = await _faceApiService.DetectFaceExtract(url);
+
+            if (dataFace == null) return BadRequest("Can't not find info of url");
+
+            return dataFace;
+        }
+
+        [HttpPost("face-detected-url")]
+        public async Task<ActionResult<FaceApiDto>> FaceDetectedUrl(UrlImageDto urlImageDto)
+        {
+            if (urlImageDto == null) return BadRequest("Can't not find url");
+
+            string urlDemo = urlImageDto.UrlImage;
+            // Detect - get features from faces.
+            var dataFace = await _faceApiService.DetectFaceExtract(urlDemo);
+
+            if (dataFace == null) return BadRequest("Can't not find info of url");
+
+            return dataFace;
+        }
+
     }
 }

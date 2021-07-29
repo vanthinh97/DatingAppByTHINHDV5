@@ -1,0 +1,15 @@
+.nv-file-over {
+    border: dotted 3px red;
+}
+
+/*dau vao la kieu file thi co tac dung*/
+input[type=file] { 
+    color: transparent;
+}
+
+.card-img-top{
+    width:336;
+    height:336px;
+    object-fit: cover;
+    object-position: 50% 50%;
+}

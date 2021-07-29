@@ -22,11 +22,11 @@ export class PhotoEditorComponent implements OnInit {
   user!: User;
 
   constructor(private accountService: AccountService, private memberService: MembersService) { 
-      this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
-        if (user) {
-          this.user = user
-        }
-      });
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+      if (user) {
+        this.user = user
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -73,6 +73,7 @@ export class PhotoEditorComponent implements OnInit {
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const photo: Photo = JSON.parse(response);
+        console.log(photo);
         this.member.photos.push(photo);
         if (photo.isMain) {
           this.user.photoUrl = photo.url;

@@ -36,6 +36,8 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 import { SignatureFieldComponent } from './signature-field/signature-field.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { FaceApiComponent } from './face-api/face-api.component';
+import { UnitTestComponent } from './unit-test/unit-test.component';
 
 
 
@@ -64,7 +66,9 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     PhotoManagementComponent,
     RolesModalComponent,
     ConfirmDialogComponent,
-    SignatureFieldComponent
+    SignatureFieldComponent,
+    FaceApiComponent,
+    UnitTestComponent
   ],
   imports: [
     BrowserModule,
